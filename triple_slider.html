@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Triple Text Slider — Houses / Signs / Planets</title>
+<style>
+  :root{ --bg:#071022; --panel:#0b1220; --accent:#f6c85f; --text:#e6eef8; --muted:#9fb6d6; }
+  body{ margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial; background: linear-gradient(180deg,#031025,#071022); color:var(--text); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; }
+  .container{ width:100%; max-width:980px; display:grid; grid-template-columns: 1fr 1fr 1fr; gap:14px; }
+  .panel{ background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:12px; padding:14px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); }
+  .heading{ display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:10px;}
+  .heading h3{ margin:0; font-size:1rem; color:var(--accent); }
+  .controls{ display:flex; gap:8px; align-items:center; }
+  .btn{ background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.04); color:var(--text); padding:8px 10px; border-radius:8px; font-size:14px; cursor:pointer; }
+  .content{ min-height:150px; padding:10px; border-radius:8px; background:rgba(255,255,255,0.01); color:var(--muted); font-size:14px; line-height:1.5; }
+  .name{ font-weight:600; color:var(--text); margin-bottom:8px; }
+  .footer{ margin-top:12px; display:flex; justify-content:space-between; align-items:center; gap:8px; }
+  .dot{ width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.03); display:inline-block; cursor:pointer; }
+  .dot.active{ background:var(--accent); box-shadow:0 6px 18px rgba(246,200,95,0.12); }
+  @media (max-width:820px){ .container{ grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<div style="max-width:980px;padding:6px;">
+  <h2 style="margin:0 0 12px 0;color:var(--accent)">Triple Slider — Houses · Signs · Planets</h2>
+  <div class="container">
+    <div class="panel" id="housePanel">
+      <div class="heading"><h3>House</h3>
+        <div class="controls">
+          <button class="btn" id="housePrev">◀</button>
+          <button class="btn" id="houseNext">▶</button>
+        </div>
+      </div>
+      <div class="content" id="houseContent"></div>
+      <div class="footer"><div id="houseName" class="name"></div><div id="houseDots"></div></div>
+    </div>
+    <div class="panel" id="signPanel">
+      <div class="heading"><h3>Sign</h3>
+        <div class="controls">
+          <button class="btn" id="signPrev">◀</button>
+          <button class="btn" id="signNext">▶</button>
+        </div>
+      </div>
+      <div class="content" id="signContent"></div>
+      <div class="footer"><div id="signName" class="name"></div><div id="signDots"></div></div>
+    </div>
+    <div class="panel" id="planetPanel">
+      <div class="heading"><h3>Planet</h3>
+        <div class="controls">
+          <button class="btn" id="planetPrev">◀</button>
+          <button class="btn" id="planetNext">▶</button>
+        </div>
+      </div>
+      <div class="content" id="planetContent"></div>
+      <div class="footer"><div id="planetName" class="name"></div><div id="planetDots"></div></div>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  const houses=["Self, appearance","Wealth, speech","Siblings, communication","Home, mother","Children, creativity","Health, work","Marriage, partnerships","Transformation, occult","Religion, philosophy","Career, authority","Friends, gains","Loss, spirituality"];
+  const signs=["Aries","Taurus","Gemini","Cancer","Leo","Virgo","Libra","Scorpio","Sagittarius","Capricorn","Aquarius","Pisces"];
+  const planets=["Sun","Moon","Mercury","Venus","Mars","Jupiter","Saturn","Rahu","Ketu"];
+  let hI=0,sI=0,pI=0;
+  function render(){document.getElementById('houseContent').innerHTML=houses[hI];document.getElementById('houseName').textContent=houses[hI];document.getElementById('signContent').innerHTML=signs[sI];document.getElementById('signName').textContent=signs[sI];document.getElementById('planetContent').innerHTML=planets[pI];document.getElementById('planetName').textContent=planets[pI];}
+  document.getElementById('housePrev').onclick=()=>{hI=(hI-1+houses.length)%houses.length;render();}
+  document.getElementById('houseNext').onclick=()=>{hI=(hI+1)%houses.length;render();}
+  document.getElementById('signPrev').onclick=()=>{sI=(sI-1+signs.length)%signs.length;render();}
+  document.getElementById('signNext').onclick=()=>{sI=(sI+1)%signs.length;render();}
+  document.getElementById('planetPrev').onclick=()=>{pI=(pI-1+planets.length)%planets.length;render();}
+  document.getElementById('planetNext').onclick=()=>{pI=(pI+1)%planets.length;render();}
+  render();
+})();
+</script>
+</body>
+</html>
